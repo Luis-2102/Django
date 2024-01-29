@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{ rent.tipo_vehiculo.title }}{% endblock %}
+{% block content %}
+{% include 'vehiculo/includes/rent_menu.html' %}
+<style>
+  .form-container {
+    float: justify;
+    width: 100%;
+    height: 30%;
+    padding: 20px 0PX;
+    background-color: rgba(0, 0, 0, 0.685);
+  }
+  body {
+    background-image: url("{% static '/core/img/Fondo_page.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-y: 0px;
+    
+  }
+
+  .custom-text2 {
+    color: rgba(255, 255, 255, 0.627);
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
+    text-shadow: 1px rgb(255, 255, 255);
+    font-family: 'Playfair Display', serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+<main role="main">
+  <div class="form-container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <h2 class="custom-text2">{{ rent.tipo_vehiculo.title }}</h2>
+        <div>
+          <img src="{{ rent.tipo_vehiculo.image.url }}" alt="{{ rent.tipo_vehiculo.title }}" class="img-fluid" style="max-width: 400px; height: auto;">
+        </div>
+        <div style="color: aliceblue;">
+          <b>Nombres Cliente: </b> {{ rent.nombre|safe }} 
+        </div>
+        <div style="color: aliceblue;">
+          <b>Apellidos Cliente: </b> {{ rent.apellido|safe }} 
+        </div>
+        <div style="color: aliceblue;">
+          <b>Cedula Cliente: </b> {{ rent.cedula|safe }} 
+        </div>
+        <div style="color: aliceblue;">
+          <b>Descripcion Del Vehiculo: </b> {{ rent.content|safe }} 
+        </div>
+        <div style="color: aliceblue;">
+          <b>Precio del vehiculo: </b>{{ rent.tipo_vehiculo.precio|safe }}
+        </div>
+        <div style="color: aliceblue;">
+          <b>Fecha de Renta del vehiculo: </b>{{ rent.fecha_renta|safe }}
+        </div>
+        <div style="color: aliceblue;">
+          <b>Fecha de Devolucion del vehiculo: </b> {{ rent.fecha_devolucion|safe }}
+        </div>
+        <div style="color: aliceblue;">
+          <b>Codigo de descuento: </b>{{ rent.codigo_descuento|safe }}
+        </div>
+        <div style="color: aliceblue;">
+          <b>Lugar de recogida del vehiculo: </b> {{ rent.ciudad_recogida|safe }}
+        </div>
+        <div style="color: aliceblue;">
+          <b>Lugar de devolucion del vehiculo: </b>{{ rent.ciudad_devolucion|safe }}
+          {% if request.user.is_staff %}
+              <p><a style="color: rgb(18, 155, 0);" href="{% url 'rents:rent_update' rent.id %}">Editar</a> 
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+

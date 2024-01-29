@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Páginas{% endblock %}
+{% block content %}
+{% include 'pages/includes/pages_menu.html' %}
+<style>
+  .form-container {
+    float: justify;
+    width: 100%;
+    height: 30%;
+    padding: 20px 0PX;
+    background-color: rgba(0, 0, 0, 0.685);
+  }
+  body {
+    background-image: url("{% static '/core/img/Fondo_page.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-y: 0px;
+    filter: saturate(0%);
+  }
+
+  .custom-text {
+    color: rgba(255, 255, 255, 0.627);
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
+    text-shadow: 1px rgb(255, 255, 255);
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .custom-text2 {
+    color: rgba(255, 255, 255, 0.627);
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
+    text-shadow: 1px rgb(255, 255, 255);
+    font-family: 'Playfair Display', serif;
+    font-size: 45px;
+    font-weight: bold;
+  }
+</style>
+
+<main role="main">
+  <div class="form-container">
+    {% for page in page_list|dictsort:"id" reversed %}
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <h2 class="custom-text2" style="text-align: center;">{{page.title}}</h2>
+        <div>
+          <div style="text-align: left;">
+            <img src="{{ page.image.url }}" alt="{{ page.title }}" class="img-thumbnail mr-3"
+              style="max-width: 400px; height: auto;">
+          </div>
+          <b style="color: rgb(255, 255, 255);">Descripcion: </b>
+          <p style="color: rgb(255, 255, 255);">{{ page.content|striptags|safe|truncatechars:"200" }}</p>
+          <b style="color: rgb(255, 255, 255);">Precio: </b>
+          <p style="color: rgb(255, 255, 255);"> {{ page.precio|striptags|safe|truncatechars:"200" }}</p>
+          <p style="color: aliceblue;"> <a href="{% url 'pages:page' page.id page.title|slugify %}">Leer más</a>
+            {% if request.user.is_staff %}
+            | <a href="{% url 'pages:update' page.id %}">Editar</a>
+            | <a href="{% url 'pages:delete' page.id %}">Borrar</a>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+</main>
+{% endblock %}

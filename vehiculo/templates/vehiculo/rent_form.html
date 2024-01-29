@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Crear Renta{% endblock %}
+{% block content %}
+{% include 'vehiculo/includes/rent_menu.html'%}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url("{% static '/core/img/Fondo_page.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-y: 0px;
+    color: aliceblue;
+  }
+
+  .formulario {
+  width: 727px ;
+  margin:  20px; 
+  background-color: #d54806e1;
+}
+
+
+.formulario_label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+.formulario_label select{
+  width: 70%;
+  margin-bottom: 10px;
+}
+.formulario_label textarea{
+  margin-right: 200px;
+  margin-bottom: 10px;
+}
+
+.formulario_label label{
+  width: auto;
+  margin-bottom: 10px;
+}
+.formulario_label input {
+  width: 34%; 
+  margin-bottom: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.formulario_label label[for="id_content"]{
+  width: 100%;
+}
+.formulario_label input[name="order"], input[name="ciudad_recogida"]{
+  width: 30%;
+}
+.formulario_label input[name="fecha_renta"], input[name="ciudad_devolucion"]{
+  width: 27%;
+}
+.formulario_label input[name="fecha_devolucion"], input[name="codigo_descuento"]{
+  width: 24%;
+}
+
+
+.formulario_input[type="text"],
+.formulario_input[type="number"],
+.formulario_textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: grid;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.685);
+}
+
+  .formulario_input[type="radio"] {
+    margin-bottom: 5px;
+  }
+
+  .formulario_input[type="submit"] {
+    background-color: #00ff08;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .formulario_input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  
+</style>
+
+<main role="main" class="formulario_textarea">
+  <div class="formulario">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <div class="">
+          <form class="formulario_label" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <br>
+            <input class="formulario_input" type="submit" value="Crear Renta" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- JavaScript -->
+<script src="{% static 'vehiculo/rent_form.js' %}"></script>
+{% endblock %}
